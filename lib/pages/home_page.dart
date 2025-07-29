@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_easy/constants/colors.dart';
-import 'package:portfolio_easy/constants/nav_items.dart';
+import 'package:portfolio_easy/constants/size.dart';
+import 'package:portfolio_easy/widgets/drawer_mobile.dart';
+import 'package:portfolio_easy/widgets/header_desktop.dart';
+import 'package:portfolio_easy/widgets/header_mobile.dart';
+import 'package:portfolio_easy/widgets/main_desktop.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,68 +14,59 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColor.ScaffoldBg,
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          // MAİN
-          Container(
-            height: 60,
-            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.transparent, CustomColor.bgLight1],
-              ),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Row(
-              children: [
-                Text("OD" ,style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                  color: CustomColor.yellowSecondary,
-                ),),
-                Spacer(),
-                for (int i = 0; i < navTitles.length; i++)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: TextButton(
-                      onPressed: () {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    return LayoutBuilder(
+      builder: (context, Constraints) {
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: CustomColor.ScaffoldBg,
+          endDrawer: Constraints.maxWidth >= kMinDesktopWidth
+              ? null
+              : const DrawerMobile(),
+          body: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              // MAİN
+              if (Constraints.maxWidth >= kMinDesktopWidth)
+                const HeaderDesktop()
+              else
+                HeaderMobile(
+                  onLogoTap: () {},
+                  onMenuTap: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                ),
 
-                      }, 
-                      child: Text(navTitles[i], style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: CustomColor.whitePrimary,
-                      ),),
-                    ),
-                  ),
-              ],
-            ),
+                /* MainDesktop(), */
+                Container(
+                  height: screenHeight,
+                  constraints: BoxConstraints(minHeight: 560.0),
+                ),
+              // SKILLS
+              Container(
+                height: 500,
+                width: double.maxFinite,
+                color: Colors.blueGrey,
+              ),
+              // PROJECTS
+              Container(height: 500, width: double.maxFinite),
+              // CONTACT
+              Container(
+                height: 500,
+                width: double.maxFinite,
+                color: Colors.blueGrey,
+              ),
+              // FOOTER
+              Container(height: 500, width: double.maxFinite),
+            ],
           ),
-          // SKILLS
-          Container(
-            height: 500,
-            width: double.maxFinite,
-            color: Colors.blueGrey,
-          ),
-          // PROJECTS
-          Container(height: 500, width: double.maxFinite),
-          // CONTACT
-          Container(
-            height: 500,
-            width: double.maxFinite,
-            color: Colors.blueGrey,
-          ),
-          // FOOTER
-          Container(height: 500, width: double.maxFinite),
-        ],
-      ),
+        );
+      },
     );
   }
 }
