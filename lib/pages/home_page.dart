@@ -5,6 +5,7 @@ import 'package:portfolio_easy/widgets/drawer_mobile.dart';
 import 'package:portfolio_easy/widgets/header_desktop.dart';
 import 'package:portfolio_easy/widgets/header_mobile.dart';
 import 'package:portfolio_easy/widgets/main_desktop.dart';
+import 'package:portfolio_easy/widgets/main_mobile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,12 +42,11 @@ class _HomePageState extends State<HomePage> {
                     scaffoldKey.currentState?.openEndDrawer();
                   },
                 ),
+              if (Constraints.maxWidth >= kMinDesktopWidth) 
+              const MainDesktop()
+              else 
+              MainMobile(),
 
-                /* MainDesktop(), */
-                Container(
-                  height: screenHeight,
-                  constraints: BoxConstraints(minHeight: 560.0),
-                ),
               // SKILLS
               Container(
                 height: 500,
