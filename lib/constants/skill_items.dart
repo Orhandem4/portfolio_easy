@@ -39,7 +39,7 @@ const List<Map> skillItems = [
     "title" : "HTML5",
   },
   {
-    "img" : "assets/ajavascript_icon.png",
+    "img" : "assets/javascript_icon.png",
     "title" : "JS",
   },
 ];
