@@ -73,16 +73,4 @@ List<ProjectUtils> workProjectUtils = [
     subtitle: 'projelerin açıklamalarının geleceği yer',
     webLink: "https://github.com/Orhandem4"
   ),
-  ProjectUtils(
-    image: 'assets/projects/proje1.jpeg', 
-    title: 'proje', 
-    subtitle: 'projelerin açıklamalarının geleceği yer',
-    webLink: "https://github.com/Orhandem4"
-  ),
-  ProjectUtils(
-    image: 'assets/projects/proje1.jpeg', 
-    title: 'proje', 
-    subtitle: 'projelerin açıklamalarının geleceği yer',
-    webLink: "https://github.com/Orhandem4"
-  ),
 ];
